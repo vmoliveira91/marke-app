@@ -10,5 +10,5 @@ declare module 'styled-components' {
       }
     }
   }
-  
-  export {}
+
+export {}
