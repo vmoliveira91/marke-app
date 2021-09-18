@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { File } from 'helpers/types/file'
-import { Wrapper } from 'sidebar/util'
-import { SavingIcon, SavedIcon } from 'sidebar/util/icon'
+import { FlexWrapper, SavingIcon, SavedIcon } from 'util/index'
 import { ReactComponent as FileIcon } from 'assets/images/file-white-icon.svg'
 import { ReactComponent as DeleteIcon } from 'assets/images/delete-icon.svg'
 import { ReactComponent as EditingIcon } from 'assets/images/editing-icon.svg'
@@ -66,10 +65,10 @@ type ListItemProps = {
 export const ListItem = ({ file }: ListItemProps) => {
   return (
     <ListItemStyle active={file.active}>
-      <Wrapper flexDirection='row' justifyContent='flex-start' alignItems='center' columnGap='10'>
+      <FlexWrapper flexDirection='row' justifyContent='flex-start' alignItems='center' columnGap='10'>
         <FileIcon />
         <a href='/'>{file.name}</a>
-      </Wrapper>
+      </FlexWrapper>
       {(file.active && file.status === 'editing') && <EditingIcon />}
       {(file.active && file.status === 'saved') && <SavedIcon />}
       {(file.active && file.status === 'saving') && <SavingIcon />}
