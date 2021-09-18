@@ -5,17 +5,16 @@ import { File } from 'helpers/types/file'
 const ListStyle = styled.ul`
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
-
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  justify-content: flex-start;
+  row-gap: 8px;
   width: 85%;
 
-
-
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
   font-weight: 400;
-  font-size: 16px;
+  font-size: 16px;  
 `
 
 export const List = () => {
@@ -33,7 +32,7 @@ const files: File[] = [
     id: '01',
     name: 'README.md',
     content: '',
-    active: true,
+    active: false,
     status: 'editing',
   },
   {
@@ -41,27 +40,27 @@ const files: File[] = [
     name: 'CONTRIBUTING.md',
     content: '',
     active: true,
-    status: 'editing',
+    status: 'saving',
   },
   {
-    id: '01',
+    id: '03',
     name: 'LICENSE.md',
     content: '',
     active: true,
-    status: 'editing',
+    status: 'saved',
   },
   {
-    id: '01',
+    id: '04',
     name: 'Links.md',
     content: '',
     active: true,
     status: 'editing',
   },
   {
-    id: '01',
+    id: '05',
     name: 'roadmap.md',
     content: '',
-    active: true,
+    active: false,
     status: 'editing',
   },
 ]

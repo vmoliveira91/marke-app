@@ -4,6 +4,7 @@ const TitleStyle = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 85%;
   font-weight: 500;
   font-size: 16px;
   color: ${({ theme }) => theme.colors.white};

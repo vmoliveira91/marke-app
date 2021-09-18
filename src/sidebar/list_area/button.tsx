@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import add from 'assets/images/plus-symbol.svg'
+import { ReactComponent as AddIcon } from 'assets/images/plus-symbol.svg'
 
 const ButtonStyle = styled.button`
   display: flex;
@@ -16,12 +16,14 @@ const ButtonStyle = styled.button`
   
   font-weight: 400;
   font-size: 13.55px;
+
+  cursor: pointer;
 `
 
 export const Button = () => {
   return (
     <ButtonStyle>
-      <img src={add} alt='Adicionar' />
+      <AddIcon />
       Adicionar arquivo
     </ButtonStyle>
   )
