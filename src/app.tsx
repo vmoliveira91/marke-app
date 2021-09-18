@@ -1,12 +1,18 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import { Sidebar } from 'sidebar'
+import { Content } from 'content'
 
-const TitleStyle = styled.h1`${({ theme }) => css`
-  color: ${theme.colors.black}
-`}`
+const AppStyle = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+`
 
 const App = () => {
   return (
-    <TitleStyle>Teste</TitleStyle>
+    <AppStyle>
+      <Sidebar />
+      <Content />
+    </AppStyle>
   )
 }
 
