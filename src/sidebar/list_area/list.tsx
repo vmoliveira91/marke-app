@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { ListItem } from './list_item'
 import { File } from 'helpers/types/file'
+import { StateProps } from 'helpers/types/state'
 
 const ListStyle = styled.ul`
   display: flex;
@@ -17,50 +18,12 @@ const ListStyle = styled.ul`
   font-size: 16px;  
 `
 
-export const List = () => {
+export const List = ({ state }: StateProps<File[]>) => {
   return (
     <ListStyle>
-      {files.map((file) => {
+      {state && state.map((file) => {
         return <ListItem key={file.id} file={file} />
       })}
     </ListStyle>
   )
 }
-
-const files: File[] = [
-  {
-    id: '01',
-    name: 'README.md',
-    content: '',
-    active: false,
-    status: 'editing',
-  },
-  {
-    id: '02',
-    name: 'CONTRIBUTING.md',
-    content: '',
-    active: true,
-    status: 'saving',
-  },
-  {
-    id: '03',
-    name: 'LICENSE.md',
-    content: '',
-    active: true,
-    status: 'saved',
-  },
-  {
-    id: '04',
-    name: 'Links.md',
-    content: '',
-    active: true,
-    status: 'editing',
-  },
-  {
-    id: '05',
-    name: 'roadmap.md',
-    content: '',
-    active: false,
-    status: 'editing',
-  },
-]

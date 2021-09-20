@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { EditingArea } from './editing_area'
 import { Markdown } from './markdown'
@@ -21,11 +22,13 @@ const ContentStyled = styled.main`
 `
 
 export const Content = () => {
+  const [content, setContent] = useState('')
+
   return (
     <ContentStyled>
-      <EditingArea />
+      <EditingArea state={content} setState={setContent} />
       <VerticalLine />
-      <Markdown />
+      <Markdown content={content} />
     </ContentStyled>
   )
 }

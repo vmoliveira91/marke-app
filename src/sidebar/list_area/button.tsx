@@ -1,5 +1,8 @@
 import styled from 'styled-components'
+import { v4 as uuidv4 } from 'uuid'
 import { ReactComponent as AddIcon } from 'assets/images/plus-symbol.svg'
+import { StateProps } from 'helpers/types/state'
+import { File } from 'helpers/types/file'
 
 const ButtonStyle = styled.button`
   display: flex;
@@ -20,9 +23,28 @@ const ButtonStyle = styled.button`
   cursor: pointer;
 `
 
-export const Button = () => {
+export const Button = ({ setState }: StateProps<File[]>) => {
+  const handleAddFile = () => {
+    const newFile: File = {
+      id: uuidv4(),
+      name: 'Sem título',
+      content: '',
+      active: true,
+      status: 'saved',
+    }
+
+    if (setState) {
+      setState((previousState: File[]) => {
+        return [...previousState.map((file) => {
+          file.active = false
+          return file
+        }), newFile]
+      })
+    }
+  }
+
   return (
-    <ButtonStyle>
+    <ButtonStyle onClick={handleAddFile}>
       <AddIcon />
       Adicionar arquivo
     </ButtonStyle>

@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { StateProps } from 'helpers/types/state'
+import { ChangeEvent } from 'react'
 
 const TextAreaStyle = styled.textarea`
   width: 100%;
@@ -17,8 +19,14 @@ const TextAreaStyle = styled.textarea`
   }
 `
 
-export const TextArea = () => {
+export const TextArea = ({ state, setState }: StateProps<string>) => {
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    if (setState) {
+      setState(event.target.value)
+    }
+  }
+
   return (
-    <TextAreaStyle />
+    <TextAreaStyle value={state} onChange={handleChange} />
   )
 }
