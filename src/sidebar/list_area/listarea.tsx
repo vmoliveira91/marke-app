@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { Title } from './title'
 import { Button } from './button'
 import { List } from './list'
+import { StateProps } from 'helpers/types/state'
+import { File } from 'helpers/types/file'
 
 const ListAreaStyle = styled.div`
     display: flex;
@@ -11,12 +13,12 @@ const ListAreaStyle = styled.div`
     row-gap: 15px;
 `
 
-export const ListArea = () => {
+export const ListArea = ({ state, setState }: StateProps<File[]>) => {
   return (
     <ListAreaStyle>
       <Title />
-      <Button />
-      <List />
+      <Button state={state} setState={setState} />
+      <List state={state} setState={setState} />
     </ListAreaStyle>
   )
 }

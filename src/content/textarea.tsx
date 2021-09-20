@@ -19,9 +19,11 @@ const TextAreaStyle = styled.textarea`
   }
 `
 
-export const TextArea = ({ state, setState }: StateProps) => {
+export const TextArea = ({ state, setState }: StateProps<string>) => {
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setState(event.target.value)
+    if (setState) {
+      setState(event.target.value)
+    }
   }
 
   return (

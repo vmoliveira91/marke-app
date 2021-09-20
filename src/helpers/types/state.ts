@@ -1,4 +1,4 @@
-export type StateProps = {
-  state: string
-  setState: Function
+export type StateProps<T> = {
+  state?: T
+  setState?: Function
 }
