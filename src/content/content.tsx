@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, RefObject } from 'react'
 import styled from 'styled-components'
 import { EditingArea } from './editing_area'
 import { Markdown } from './markdown'
@@ -16,17 +16,21 @@ const VerticalLine = () => {
   )
 }
 
+type ContentProps = {
+  inputRef: RefObject<HTMLInputElement>
+}
+
 const ContentStyled = styled.main`
   display: grid;
   grid-template-columns: 1fr 6px 1fr;
 `
 
-export const Content = () => {
+export const Content = ({ inputRef }: ContentProps) => {
   const [content, setContent] = useState('')
 
   return (
     <ContentStyled>
-      <EditingArea state={content} setState={setContent} />
+      <EditingArea state={content} setState={setContent} inputRef={inputRef} />
       <VerticalLine />
       <Markdown content={content} />
     </ContentStyled>

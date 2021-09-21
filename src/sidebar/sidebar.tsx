@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { RefObject } from 'react'
 import { Header } from './header'
 import { ListArea } from './list_area'
 import { File } from 'helpers/types/file'
+import { StateProps } from 'helpers/types/state'
 
 const SidebarStyle = styled.aside`
   display: grid;
@@ -11,51 +12,15 @@ const SidebarStyle = styled.aside`
   height: 100vh;
 `
 
-export const Sidebar = () => {
-  const [files, setFiles] = useState<File[]>(
-    [
-      {
-        id: '01',
-        name: 'README.md',
-        content: '',
-        active: false,
-        status: 'editing',
-      },
-      {
-        id: '02',
-        name: 'CONTRIBUTING.md',
-        content: '',
-        active: true,
-        status: 'saving',
-      },
-      {
-        id: '03',
-        name: 'LICENSE.md',
-        content: '',
-        active: true,
-        status: 'saved',
-      },
-      {
-        id: '04',
-        name: 'Links.md',
-        content: '',
-        active: true,
-        status: 'editing',
-      },
-      {
-        id: '05',
-        name: 'roadmap.md',
-        content: '',
-        active: false,
-        status: 'editing',
-      },
-    ],
-  )
+type SidebarProps = StateProps<File[]> & {
+  inputRef: RefObject<HTMLInputElement>
+}
 
+export const Sidebar = ({ state, setState, inputRef }: SidebarProps) => {
   return (
     <SidebarStyle>
       <Header />
-      <ListArea state={files} setState={setFiles} />
+      <ListArea state={state} setState={setState} inputRef={inputRef} />
     </SidebarStyle>
   )
 }

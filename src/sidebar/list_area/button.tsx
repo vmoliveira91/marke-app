@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
+import { RefObject } from 'react'
 import { ReactComponent as AddIcon } from 'assets/images/plus-symbol.svg'
 import { StateProps } from 'helpers/types/state'
 import { File } from 'helpers/types/file'
@@ -23,8 +24,14 @@ const ButtonStyle = styled.button`
   cursor: pointer;
 `
 
-export const Button = ({ setState }: StateProps<File[]>) => {
+type ButtonProps = StateProps<File[]> & {
+  inputRef: RefObject<HTMLInputElement>
+}
+
+export const Button = ({ setState, inputRef }: ButtonProps) => {
   const handleAddFile = () => {
+    inputRef.current?.focus()
+
     const newFile: File = {
       id: uuidv4(),
       name: 'Sem título',

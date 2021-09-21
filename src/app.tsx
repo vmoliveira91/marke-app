@@ -1,6 +1,8 @@
 import styled from 'styled-components'
+import { useRef, useState } from 'react'
 import { Sidebar } from 'sidebar'
 import { Content } from 'content'
+import { File } from 'helpers/types/file'
 
 const AppStyle = styled.div`
   display: grid;
@@ -8,10 +10,13 @@ const AppStyle = styled.div`
 `
 
 const App = () => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [files, setFiles] = useState<File[]>([])
+
   return (
     <AppStyle>
-      <Sidebar />
-      <Content />
+      <Sidebar state={files} setState={setFiles} inputRef={inputRef} />
+      <Content inputRef={inputRef} />
     </AppStyle>
   )
 }
