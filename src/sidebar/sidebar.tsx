@@ -14,13 +14,19 @@ const SidebarStyle = styled.aside`
 
 type SidebarProps = StateProps<File[]> & {
   inputRef: RefObject<HTMLInputElement>
+  handleDelete: Function
 }
 
-export const Sidebar = ({ state, setState, inputRef }: SidebarProps) => {
+export const Sidebar = ({ state, setState, inputRef, handleDelete }: SidebarProps) => {
   return (
     <SidebarStyle>
       <Header />
-      <ListArea state={state} setState={setState} inputRef={inputRef} />
+      <ListArea
+        state={state}
+        setState={setState}
+        inputRef={inputRef}
+        handleDelete={handleDelete}
+      />
     </SidebarStyle>
   )
 }

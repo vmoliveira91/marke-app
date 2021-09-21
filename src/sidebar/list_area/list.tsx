@@ -18,11 +18,21 @@ const ListStyle = styled.ul`
   font-size: 16px;  
 `
 
-export const List = ({ state }: StateProps<File[]>) => {
+type ListProps = StateProps<File[]> & {
+  handleDelete: Function
+}
+
+export const List = ({ state, handleDelete }: ListProps) => {
   return (
     <ListStyle>
       {state && state.map((file) => {
-        return <ListItem key={file.id} file={file} />
+        return (
+          <ListItem
+            key={file.id}
+            file={file}
+            handleDelete={handleDelete}
+          />
+        )
       })}
     </ListStyle>
   )

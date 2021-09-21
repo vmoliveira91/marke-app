@@ -60,9 +60,10 @@ const ListItemStyle = styled.li<ListItemStyleProps>`
 
 type ListItemProps = {
     file: File
+    handleDelete: Function
 }
 
-export const ListItem = ({ file }: ListItemProps) => {
+export const ListItem = ({ file, handleDelete }: ListItemProps) => {
   return (
     <ListItemStyle active={file.active}>
       <FlexWrapper flexDirection='row' justifyContent='flex-start' alignItems='center' columnGap='10'>
@@ -72,7 +73,7 @@ export const ListItem = ({ file }: ListItemProps) => {
       {(file.active && file.status === 'editing') && <EditingIcon />}
       {(file.active && file.status === 'saved') && <SavedIcon />}
       {(file.active && file.status === 'saving') && <SavingIcon />}
-      {!file.active && <button><DeleteIcon /></button>}
+      {!file.active && <button onClick={() => handleDelete(file.id)}><DeleteIcon /></button>}
     </ListItemStyle>
   )
 }

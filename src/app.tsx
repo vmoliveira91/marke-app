@@ -13,9 +13,20 @@ const App = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [files, setFiles] = useState<File[]>([])
 
+  const handleDeleteFile = (id: string) => {
+    setFiles((previousFiles) => {
+      return previousFiles.filter((file) => file.id !== id)
+    })
+  }
+
   return (
     <AppStyle>
-      <Sidebar state={files} setState={setFiles} inputRef={inputRef} />
+      <Sidebar
+        state={files}
+        setState={setFiles}
+        inputRef={inputRef}
+        handleDelete={handleDeleteFile}
+      />
       <Content inputRef={inputRef} />
     </AppStyle>
   )
