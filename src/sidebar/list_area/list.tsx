@@ -19,10 +19,11 @@ const ListStyle = styled.ul`
 `
 
 type ListProps = StateProps<File[]> & {
+  handleSelect: Function
   handleDelete: Function
 }
 
-export const List = ({ state, handleDelete }: ListProps) => {
+export const List = ({ state, handleSelect, handleDelete }: ListProps) => {
   return (
     <ListStyle>
       {state && state.map((file) => {
@@ -30,6 +31,7 @@ export const List = ({ state, handleDelete }: ListProps) => {
           <ListItem
             key={file.id}
             file={file}
+            handleSelect={handleSelect}
             handleDelete={handleDelete}
           />
         )

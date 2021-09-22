@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { StateProps } from 'helpers/types/state'
-import { ChangeEvent } from 'react'
+import { File } from 'helpers/types/file'
 
 const TextAreaStyle = styled.textarea`
   width: 100%;
@@ -19,14 +18,13 @@ const TextAreaStyle = styled.textarea`
   }
 `
 
-export const TextArea = ({ state, setState }: StateProps<string>) => {
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    if (setState) {
-      setState(event.target.value)
-    }
-  }
+type TextAreaProps = {
+  file: File
+  handleFileContent: Function
+}
 
+export const TextArea = ({ file, handleFileContent }: TextAreaProps) => {
   return (
-    <TextAreaStyle value={state} onChange={handleChange} />
+    <TextAreaStyle value={file.content} onChange={handleFileContent(file.id)} />
   )
 }

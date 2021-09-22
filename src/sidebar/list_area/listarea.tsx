@@ -16,10 +16,11 @@ const ListAreaStyle = styled.div`
 
 type ListAreaProps = StateProps<File[]> & {
   inputRef: RefObject<HTMLInputElement>
+  handleSelect: Function
   handleDelete: Function
 }
 
-export const ListArea = ({ state, setState, inputRef, handleDelete }: ListAreaProps) => {
+export const ListArea = ({ state, setState, inputRef, handleSelect, handleDelete }: ListAreaProps) => {
   return (
     <ListAreaStyle>
       <Title />
@@ -31,6 +32,7 @@ export const ListArea = ({ state, setState, inputRef, handleDelete }: ListAreaPr
       <List
         state={state}
         setState={setState}
+        handleSelect={handleSelect}
         handleDelete={handleDelete}
       />
     </ListAreaStyle>
