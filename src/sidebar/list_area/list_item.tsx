@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { MouseEvent } from 'react'
 import { File } from 'helpers/types/file'
 import { FlexWrapper, SavingIcon, SavedIcon } from 'util/index'
 import { ReactComponent as FileIcon } from 'assets/images/file-white-icon.svg'
@@ -60,19 +61,26 @@ const ListItemStyle = styled.li<ListItemStyleProps>`
 
 type ListItemProps = {
     file: File
+    handleSelect: Function
+    handleDelete: Function
 }
 
-export const ListItem = ({ file }: ListItemProps) => {
+export const ListItem = ({ file, handleSelect, handleDelete }: ListItemProps) => {
+  const itemHandleSelect = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault()
+    handleSelect(id)
+  }
+
   return (
     <ListItemStyle active={file.active}>
       <FlexWrapper flexDirection='row' justifyContent='flex-start' alignItems='center' columnGap='10'>
         <FileIcon />
-        <a href='/'>{file.name}</a>
+        <a href='/' onClick={(e: MouseEvent<HTMLAnchorElement>) => itemHandleSelect(e, file.id)}>{file.name}</a>
       </FlexWrapper>
       {(file.active && file.status === 'editing') && <EditingIcon />}
       {(file.active && file.status === 'saved') && <SavedIcon />}
       {(file.active && file.status === 'saving') && <SavingIcon />}
-      {!file.active && <button><DeleteIcon /></button>}
+      {!file.active && <button onClick={() => handleDelete(file.id)}><DeleteIcon /></button>}
     </ListItemStyle>
   )
 }

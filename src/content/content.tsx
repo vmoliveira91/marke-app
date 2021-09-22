@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { File } from 'helpers/types/file'
+import { RefObject } from 'react'
 import styled from 'styled-components'
 import { EditingArea } from './editing_area'
 import { Markdown } from './markdown'
@@ -16,19 +17,33 @@ const VerticalLine = () => {
   )
 }
 
+type ContentProps = {
+  inputRef: RefObject<HTMLInputElement>
+  file?: File
+  handleFileName: Function
+  handleFileContent: Function
+}
+
 const ContentStyled = styled.main`
   display: grid;
   grid-template-columns: 1fr 6px 1fr;
 `
 
-export const Content = () => {
-  const [content, setContent] = useState('')
+export const Content = ({ inputRef, file, handleFileName, handleFileContent }: ContentProps) => {
+  if (!file) {
+    return null
+  }
 
   return (
     <ContentStyled>
-      <EditingArea state={content} setState={setContent} />
+      <EditingArea
+        inputRef={inputRef}
+        file={file}
+        handleFileName={handleFileName}
+        handleFileContent={handleFileContent}
+      />
       <VerticalLine />
-      <Markdown content={content} />
+      <Markdown content={file.content} />
     </ContentStyled>
   )
 }
