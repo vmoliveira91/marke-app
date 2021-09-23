@@ -107,6 +107,16 @@ export const useFiles = () => {
   }
 
   const handleUpdateFileName = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
+    const lfUpdateFileName = async () => {
+      await localforage.setItem('files', files.map(file => {
+        return {
+          ...file,
+          name: file.id === id ? event.target.value : file.name,
+          status: file.id === id ? 'saved' : file.status,
+        }
+      }))
+    }
+
     setFiles((previousFiles) => {
       return previousFiles.map((file) => {
         if (file.id === id) {
@@ -116,9 +126,21 @@ export const useFiles = () => {
         return file
       })
     })
+
+    lfUpdateFileName()
   }
 
   const handleUpdateFileContent = (id: string) => (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const lfUpdateFileContent = async () => {
+      await localforage.setItem('files', files.map(file => {
+        return {
+          ...file,
+          content: file.id === id ? event.target.value : file.content,
+          status: file.id === id ? 'saved' : file.status,
+        }
+      }))
+    }
+
     setFiles((previousFiles) => {
       return previousFiles.map((file) => {
         if (file.id === id) {
@@ -128,6 +150,8 @@ export const useFiles = () => {
         return file
       })
     })
+
+    lfUpdateFileContent()
   }
 
   return {
