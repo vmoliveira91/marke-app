@@ -4,6 +4,7 @@ import { RefObject } from 'react'
 import { ReactComponent as AddIcon } from 'assets/images/plus-symbol.svg'
 import { StateProps } from 'helpers/types/state'
 import { File } from 'helpers/types/file'
+import localforage from 'localforage'
 
 const ButtonStyle = styled.button`
   display: flex;
@@ -30,6 +31,14 @@ type ButtonProps = StateProps<File[]> & {
 
 export const Button = ({ setState, inputRef }: ButtonProps) => {
   const handleAddFile = () => {
+    const getFiles = async (file: File) => {
+      const files: File[] | null = await localforage.getItem('files')
+
+      if (files) {
+        await localforage.setItem('files', [...files, file])
+      }
+    }
+
     inputRef.current?.focus()
 
     const newFile: File = {
@@ -47,6 +56,8 @@ export const Button = ({ setState, inputRef }: ButtonProps) => {
           return file
         }), newFile]
       })
+
+      getFiles(newFile)
     }
   }
 

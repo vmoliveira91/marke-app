@@ -11,8 +11,6 @@ export const useFiles = () => {
     const getFiles = async () => {
       const files: File[] | null = await localforage.getItem('files')
 
-      console.log(files)
-
       if (!files) {
         inputRef.current?.focus()
 
@@ -89,9 +87,15 @@ export const useFiles = () => {
   }
 
   const handleDeleteFile = (id: string) => {
+    const lfDelete = async () => {
+      await localforage.setItem('files', files.filter((file) => file.id !== id))
+    }
+
     setFiles((previousFiles) => {
       return previousFiles.filter((file) => file.id !== id)
     })
+
+    lfDelete()
   }
 
   const handleUpdateFileName = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
