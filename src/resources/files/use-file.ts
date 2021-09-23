@@ -72,6 +72,12 @@ export const useFiles = () => {
   }, [files])
 
   const handleSelectFile = (id: string) => {
+    const lfSelectFile = async () => {
+      await localforage.setItem('files', files.map((file) => {
+        return { ...file, active: file.id === id }
+      }))
+    }
+
     inputRef.current?.focus()
 
     setFiles((previousFiles) => {
@@ -84,6 +90,8 @@ export const useFiles = () => {
         return file
       })
     })
+
+    lfSelectFile()
   }
 
   const handleDeleteFile = (id: string) => {
