@@ -8,8 +8,12 @@ export const useFiles = () => {
   const [files, setFiles] = useState<File[]>([])
 
   useEffect(() => {
+    localforage.setItem('files', files)
+  }, [files])
+
+  useEffect(() => {
     const getFiles = async () => {
-      const files: File[] | null = await localforage.getItem('files')
+      const files = await localforage.getItem<File[]>('files')
 
       if (!files) {
         inputRef.current?.focus()
@@ -23,8 +27,6 @@ export const useFiles = () => {
         }
 
         setFiles([newFile])
-
-        await localforage.setItem('files', [newFile])
       } else {
         setFiles(files)
       }
@@ -72,12 +74,6 @@ export const useFiles = () => {
   }, [files])
 
   const handleSelectFile = (id: string) => {
-    const lfSelectFile = async () => {
-      await localforage.setItem('files', files.map((file) => {
-        return { ...file, active: file.id === id }
-      }))
-    }
-
     inputRef.current?.focus()
 
     setFiles((previousFiles) => {
@@ -90,33 +86,15 @@ export const useFiles = () => {
         return file
       })
     })
-
-    lfSelectFile()
   }
 
   const handleDeleteFile = (id: string) => {
-    const lfDelete = async () => {
-      await localforage.setItem('files', files.filter((file) => file.id !== id))
-    }
-
     setFiles((previousFiles) => {
       return previousFiles.filter((file) => file.id !== id)
     })
-
-    lfDelete()
   }
 
   const handleUpdateFileName = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    const lfUpdateFileName = async () => {
-      await localforage.setItem('files', files.map(file => {
-        return {
-          ...file,
-          name: file.id === id ? event.target.value : file.name,
-          status: file.id === id ? 'saved' : file.status,
-        }
-      }))
-    }
-
     setFiles((previousFiles) => {
       return previousFiles.map((file) => {
         if (file.id === id) {
@@ -126,21 +104,9 @@ export const useFiles = () => {
         return file
       })
     })
-
-    lfUpdateFileName()
   }
 
   const handleUpdateFileContent = (id: string) => (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const lfUpdateFileContent = async () => {
-      await localforage.setItem('files', files.map(file => {
-        return {
-          ...file,
-          content: file.id === id ? event.target.value : file.content,
-          status: file.id === id ? 'saved' : file.status,
-        }
-      }))
-    }
-
     setFiles((previousFiles) => {
       return previousFiles.map((file) => {
         if (file.id === id) {
@@ -150,8 +116,6 @@ export const useFiles = () => {
         return file
       })
     })
-
-    lfUpdateFileContent()
   }
 
   return {
