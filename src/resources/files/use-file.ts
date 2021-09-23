@@ -26,8 +26,14 @@ export const useFiles = () => {
           status: 'saved',
         }
 
+        window.history.replaceState(null, '', `/file/${newFile.id}`)
+
         setFiles([newFile])
       } else {
+        const id = files.find(file => file.active)?.id
+
+        window.history.replaceState(null, '', `/file/${id}`)
+
         setFiles(files)
       }
     }
@@ -75,6 +81,8 @@ export const useFiles = () => {
 
   const handleSelectFile = (id: string) => {
     inputRef.current?.focus()
+
+    window.history.replaceState(null, '', `/file/${id}`)
 
     setFiles((previousFiles) => {
       return previousFiles.map((file) => {

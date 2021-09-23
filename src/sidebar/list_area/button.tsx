@@ -40,6 +40,8 @@ export const Button = ({ setState, inputRef }: ButtonProps) => {
       status: 'saved',
     }
 
+    window.history.replaceState(null, '', `/file/${newFile.id}`)
+
     if (setState) {
       setState((previousState: File[]) => {
         return [...previousState.map((file) => {
